@@ -21,8 +21,8 @@ def main():
             socket.AF_INET, socket.SOCK_STREAM)
     #now connect to the web server on port 80
     # - the normal http port
-    s.connect(("localhost", 8888))
-
+    #s.connect(("localhost", 8888))
+    s.connect(("130.58.194.209",43))
     print("Connected")
     chunks = []
     bytes_recd = 0
