@@ -3,7 +3,7 @@ import time
 
 class ServoController:
     def __init__(self):
-        usbPort = '/dev/tty.usbmodem00080463'
+        usbPort = '/dev/ttyACM0'
         self.sc = serial.Serial(usbPort, timeout=1)
 
     def closeServo(self):
@@ -38,6 +38,18 @@ class ServoController:
         w1 = ord(self.sc.read())
         w2 = ord(self.sc.read())
         return w1, w2
+
+    def setPWM(self, duty_cycle, period, frequency=None):
+        if frequency:
+            period = 1.0/frequency
+        on = int((duty_cycle/100.0)*period)
+        on_low = (on & 0x7f)
+        on_high = (on >> 7) & 0x7f
+        period = int(period)
+        period_low = period & 0x7f
+        period_high = (period >> 7) & 0x7f
+        data = chr(0xaa) + chr(0x0c) + chr(0x0a) + chr(on_low) + chr(on_high) + chr(period_low) + chr(period_high)
+        self.sc.write(data)
 
     def triggerScript(self, subNumber):
         data =  chr(0xaa) + chr(0x0c) + chr(0x27) + chr(0)
