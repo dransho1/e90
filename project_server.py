@@ -5,9 +5,14 @@ import datetime
 import cv2
 import sys
 import numpy as np
-import vehicle_control as vc
+import servotest as vc
+
+MOTOR_NEUTRAL = 1500
+ESC_SERVO = 1
+STEER_SERVO = 0
 
 ALLOWABLE_OPERATING_CONDITIONS = [
+        "startup",
         "normal",
         "autonomous",
         "shutdown",
@@ -29,7 +34,7 @@ def warn(string):
         print string
 
 def error(string):
-    if VERBOSITY != "Silent"):
+    if (VERBOSITY != "Silent"):
         print string
 
 def connection_handler(sock, d, cq):
@@ -54,12 +59,18 @@ def connection_handler(sock, d, cq):
             d["operating_condition"] = "emergency_stop"
             print("Client {} sent STOP signal".format(addr))
             break
+
+        elif client_action == "CTL":
+            client.sendall("RDY")
+            ctl = client.recv(10)
+            cq.put(ctl)
         else:
             break
     client.close()
     print("Client Disconnected")
 
 def driver(d, cq):
+    controller = vc.ServoController()
     while d["operating_condition"] != "shutdown":
         opcon = d["operating_condition"]
         if opcon == "emergency_stop":
@@ -70,9 +81,17 @@ def driver(d, cq):
             d["operating_condition"] = "shutdown"
         
         elif opcon == "normal":
+            #print("operating")
             control = cq.get()
+            #print(control[0:5])
+            steering = int(control[0:5])
+            throttle = int(control[5::])
+            print(steering)
+            print(throttle)
+            controller.setAngle(0, steering)
+            controller.setPosition(ESC_SERVO, MOTOR_NEUTRAL + 2*throttle)
             #vc.serial_control(control)
-            print("Applying control {}".format(control))
+            #print("Applying control {}".format(control))
 
     if d["operating_conditon"] == "shutdown":
         #vc.serial_control((0,90))
@@ -115,15 +134,15 @@ if __name__ == '__main__':
     vehicle = mp.Manager()
     control_q = mp.Queue()
     vehicle_state = vehicle.dict()
+    vehicle_state["operating_condition"] = "startup"
     set_active(vehicle_state, True)
 
-    max_client_connections = 1
+    max_client_connections = 4
 
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print(len(sys.argv))
     if len(sys.argv) == 3:
         ip_addr = sys.argv[1] 
-        port = sys.argv[2]
+        port = int(sys.argv[2])
     elif len(sys.argv) == 1:
         ip_addr = "localhost"
         port = 8888
@@ -135,35 +154,49 @@ if __name__ == '__main__':
     print("Server running on port {}".format(port))
     serversocket.listen(5)
     
+    all_procs = []
     clientelle = [mp.Process(target=connection_handler, args=(serversocket,
         vehicle_state,control_q)) for i\
-        in range(max_client_connections_workers)]
+        in range(max_client_connections)]
     for p in clientelle:
         p.daemon = True
         p.start()
+        all_procs.append(p)
 
     # Start a thread to capture our forward-facing images
+    """
     cameraman = mp.Process(target=img_updater, args=(vehicle_state,))
     cameraman.daemon = True
     warn("Booting camera")
     cameraman.start()
-
+    
     # Start a thread to capture our position 
     magellan = mp.Process(target=pos_updater, args=(vehicle_state,))
     magellan.daemon = True
     warn("Booting navigation system")
     magellan.start()
-
+    """
     # Start the throttle and control interface
     yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
     yeager.daemon = True
     warn("Booting control")
     yeager.start()
+    all_procs.append(yeager)
 
     warn("Vehicle initilization complete")
     serversocket.close()
 
     while True:
+        try:
+            time.sleep(0.01)
+        except KeyboardInterrupt as ki:
+            vehicle_state["operating_condition"]="shutdown"
+            print("Shutting down system")
+            break
+    for proc in all_procs:
+        proc.join()
+    #TODO server robustness - after client disconnect, keep child alive
 
+    print("all processes terminated")
 cap.release()
 exit()
