@@ -37,7 +37,7 @@ def error(string):
     if (VERBOSITY != "Silent"):
         print string
 
-def connection_handler(sock, d, cq):
+def connection_handler(sock, d, cq, camq):
     client, addr = sock.accept()
     print("Client Connected on {}".format(addr))
     while True:
@@ -46,14 +46,13 @@ def connection_handler(sock, d, cq):
             client.sendall(str(datetime.datetime.now()))
             time.sleep(0.1)
         elif client_action == "IMG":
-            frame = d['frame_grab'].copy()
-            gray = frame
-            img_str = cv2.imencode('.jpg', gray)[1].tostring()
+            #frame = d['frame_grab'].copy()
+            #gray = frame
+            img_str = camq.get()          
             to_expect = str(len(img_str)).zfill(128)
             client.sendall(to_expect)
             if client.recv(4) == "DATA":
                 client.sendall(img_str)
-
         elif client_action == "STP":
             client.sendall("HANGUP")
             d["operating_condition"] = "emergency_stop"
@@ -110,16 +109,17 @@ def pos_updater(d):
         d["t_accel"] = [0,0,0]
         d["a_accel"] = [0,0,0]
 
-def img_updater(d):
-    while d["operating_condition"] != "shutdown":
+def img_updater(d,q):
+    while True: #d["operating_condition"] != "shutdown":
             try:
                 ret,frame = cap.read()
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                d['frame_grab'] = gray
-                time.sleep(0.01)
-            except:
+                gray = frame#cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                q.put(cv2.imencode('.jpg', gray)[1].tostring())
+                time.sleep(1.0/24.0)
+                #d['frame_grab'] = gray
+            except Exception as e:
                 pass
-                error("Caught cameraman error")
+                error("Caught cameraman error {}".format(str(e)))
 
 def emergency_stop(vehicle):
     error("EMERGENCY STOP")
@@ -133,13 +133,17 @@ def set_active(state, target):
 if __name__ == '__main__':
     vehicle = mp.Manager()
     control_q = mp.Queue()
+    client_q = mp.Queue()
+    camq = mp.Queue(1)
     vehicle_state = vehicle.dict()
     vehicle_state["operating_condition"] = "startup"
     set_active(vehicle_state, True)
 
-    max_client_connections = 4
+    max_client_connections = 1
 
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    camera_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     if len(sys.argv) == 3:
         ip_addr = sys.argv[1] 
         port = int(sys.argv[2])
@@ -151,12 +155,14 @@ if __name__ == '__main__':
                 .format(sys.argv[0]))
         exit()
     serversocket.bind((ip_addr,port))
+    camera_socket.bind((ip_addr, port+1))
+    print("Camera on port {}".format(port+1))
     print("Server running on port {}".format(port))
-    serversocket.listen(5)
+    serversocket.listen(1)
     
     all_procs = []
     clientelle = [mp.Process(target=connection_handler, args=(serversocket,
-        vehicle_state,control_q)) for i\
+        vehicle_state,control_q, camq)) for i\
         in range(max_client_connections)]
     for p in clientelle:
         p.daemon = True
@@ -164,12 +170,12 @@ if __name__ == '__main__':
         all_procs.append(p)
 
     # Start a thread to capture our forward-facing images
-    """
-    cameraman = mp.Process(target=img_updater, args=(vehicle_state,))
+    cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
     cameraman.daemon = True
     warn("Booting camera")
     cameraman.start()
-    
+
+    """
     # Start a thread to capture our position 
     magellan = mp.Process(target=pos_updater, args=(vehicle_state,))
     magellan.daemon = True
@@ -188,7 +194,8 @@ if __name__ == '__main__':
 
     while True:
         try:
-            time.sleep(0.01)
+            pass
+            #time.sleep(0.01)
         except KeyboardInterrupt as ki:
             vehicle_state["operating_condition"]="shutdown"
             print("Shutting down system")
