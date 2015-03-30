@@ -11,7 +11,7 @@ BEACON_LOCS = {
         'blue':(-1.65+10,-5.34+10, 'blue')
         }
 
-
+'''
 def project(beacons, disk, df):
     projections = []
     for (beacon,color) in beacons:
@@ -32,10 +32,20 @@ def project(beacons, disk, df):
         projected_beacon.setFill(color)
         projections.append((projected_beacon, color))
     return projections
+'''
+
+def modf(x, y):
+    return x - y*np.floor(x/y)
+
+def wrap2pi(angle):
+    return modf(angle + np.pi, 2*np.pi) - np.pi
 
 def alpha(x, y, theta, bcn_x, bcn_y):
     angle = np.arctan2(bcn_y-y, bcn_x-x)-theta
-    return angle
+    return wrap2pi(angle) 
+
+def angle_diff(a, b):
+    return wrap2pi(a-b)
 
 def guess_position_from(angles, init_guess=None):
     '''
@@ -43,21 +53,23 @@ def guess_position_from(angles, init_guess=None):
     position based on the beacon locations and the angles to the beacon
     '''
     # x[0] is x, x[1] is y, x[2] = theta
-    error_fun = lambda x : np.sum([(angles[color]-alpha(x[0],x[1],x[2],\
+    error_fun = lambda x : np.sum([angle_diff(angles[color],alpha(x[0],x[1],x[2],\
             BEACON_LOCS[color][0], BEACON_LOCS[color][1]))**2 \
             for color in angles])
     grad = lambda x : np.array(jacobian(x[0],x[1],x[2],angles))
     if init_guess is None:
-        guess = [10.0,10.0,0]
+        guess = [10.0,10.0,wrap2pi(np.pi/2-angles['red'])]
     else:
         guess = init_guess
     bnds = ((0,20), (0,20), (-2*3.14159, 2*3.14159))
+    print 'guess:', guess 
     result = minimize(error_fun, guess, jac=grad, method='TNC', bounds=bnds)    
     #result = minimize(error_fun, guess, jac=grad, method='BFGS', bounds=bnds)
     #print result
     #eps = np.sqrt(np.finfo(np.float).eps)
     #print approx_fprime(guess, error_fun, eps)
     #print jacobian(guess[0],guess[1],guess[2],angles)
+    result.x[2] = wrap2pi(result.x[2])
     return result.x
 
 def dx(x,y,t,bx,by):
