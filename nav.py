@@ -4,11 +4,12 @@ import random, math, time
 from scipy.optimize import minimize, check_grad, approx_fprime
 
 MIRROR_RADIUS = 30 #mm
-
+TN = .305 #cm TILE CONVERSION
+OO = 10 #Origin Offset
 BEACON_LOCS = {
-        'red':(.52+10,7.04+10,'red'),
-        'green':(2.17+10,-3.05+10, 'green'),
-        'blue':(-1.65+10,-5.34+10, 'blue')
+        'red':  (2.0*TN+OO,   23.0*TN+OO,'red'),
+        'green':(7.0*TN+OO,  -20.0*TN+OO, 'green'),
+        'blue': (-6.0*TN+OO, -20.0*TN+OO, 'blue')
         }
 
 '''
@@ -62,7 +63,6 @@ def guess_position_from(angles, init_guess=None):
     else:
         guess = init_guess
     bnds = ((0,20), (0,20), (-2*3.14159, 2*3.14159))
-    print 'guess:', guess 
     result = minimize(error_fun, guess, jac=grad, method='TNC', bounds=bnds)    
     #result = minimize(error_fun, guess, jac=grad, method='BFGS', bounds=bnds)
     #print result
