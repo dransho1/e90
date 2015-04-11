@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import nav 
 
 GAMMA_CORR = 5 #this will change with lighting conditions
 GAUSS_BLUR_RAD = 15
@@ -47,9 +48,10 @@ def find_angles_for(dots, center):
         dot_centers[dot] = find_beacon(dots[dot])
     for dot_center in dot_centers:
         beacon = dot_centers[dot_center]
-        angle_to[dot_center] = np.degrees(np.arctan2(-(beacon[0]-center[0]), 
-                                                      (beacon[1]-center[1])))
-    #print(angle_to)
+        angle_to[dot_center] = (np.arctan2(-(beacon[0]-center[0]), 
+                                        (beacon[1]-center[1])))
+    print(angle_to)
+    print([[color, np.degrees(angle_to[color])] for color in angle_to.keys()])
     return(angle_to, dot_centers)
 
 def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
@@ -87,8 +89,10 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
     for pt in dots:
         cv2.circle(display, dots[pt], 10, color_dict[pt], 2) 
     cv2.imshow("display", display)
-    print(angle_to)
-    while cv2.waitKey(5) < 0: pass
+    loc = nav.guess_position_from(angle_to)
+    print("{} {} {}".format(loc[0], loc[1], np.degrees(loc[2])))
+    #print(angle_to)
+    #while cv2.waitKey(5) < 0: pass
     return gci
 
 def main():
@@ -111,4 +115,4 @@ def main():
 
     operate_on(imag, dome_center, radius, GAMMA_CORR)
 
-main()
+#main()
