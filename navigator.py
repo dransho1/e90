@@ -4,6 +4,7 @@ import nav
 
 GAMMA_CORR = 5 #this will change with lighting conditions
 GAUSS_BLUR_RAD = 15
+CIRCLE_CENTER = (325,196)
 
 def find_beacon(img):
     img = cv2.GaussianBlur(img, (GAUSS_BLUR_RAD, GAUSS_BLUR_RAD), 0)
@@ -50,12 +51,15 @@ def find_angles_for(dots, center):
         beacon = dot_centers[dot_center]
         angle_to[dot_center] = (np.arctan2(-(beacon[0]-center[0]), 
                                         (beacon[1]-center[1])))
-    print(angle_to)
-    print([[color, np.degrees(angle_to[color])] for color in angle_to.keys()])
+    #print(angle_to)
     return(angle_to, dot_centers)
 
 def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
-    #dome_center = find_circs(image)
+    #dome_center = tuple(int(x) for x in find_circs(image)[0])
+    #print(dome_center)
+    dome_center = CIRCLE_CENTER
+    dome_radius = int(dome_radius - 10)
+    
     working_copy = image.copy()
     display = image.copy()
     blank = np.zeros(image.shape, dtype=np.uint8)
@@ -67,12 +71,21 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
     rb = cv2.GaussianBlur(r, (15,15), 0)
     gb = cv2.GaussianBlur(g, (15,15), 0)
 
+    #Subtract other colors to penalize white
     b = cv2.subtract(b, rb)
     b = cv2.subtract(b, gb)
     r = cv2.subtract(r, bb)
     r = cv2.subtract(r, gb)
     g = cv2.subtract(g, rb)
     g = cv2.subtract(g, bb)
+
+    #Apply morphological closing to image to close holes
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(30,30))
+    b = cv2.morphologyEx(b, cv2.MORPH_CLOSE, kernel)
+    r = cv2.morphologyEx(r, cv2.MORPH_CLOSE, kernel)
+    g = cv2.morphologyEx(g, cv2.MORPH_CLOSE, kernel)
+
+
 
     cv2.imshow("blue", b)
     cv2.imshow("red", r)
@@ -82,15 +95,21 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
     dot_dict['red'] = r
     dot_dict['green'] = g
     angle_to, dots = find_angles_for(dot_dict, dome_center)
+    #angle_to['blue'] = np.radians(-106.699)
+    #angle_to['red'] = np.radians(85.03)
+    #angle_to['green'] = np.radians(-71.71)
     color_dict = {
             'blue':(255,0,0),
             'green':(0,255,0),
             'red':(0,0,255)}
     for pt in dots:
         cv2.circle(display, dots[pt], 10, color_dict[pt], 2) 
+    cv2.circle(display, dome_center, 10, (255, 255, 255), 2)
+    cv2.circle(display, dome_center, dome_radius, (0,0,0), 2)
     cv2.imshow("display", display)
     loc = nav.guess_position_from(angle_to)
-    print("{} {} {}".format(loc[0], loc[1], np.degrees(loc[2])))
+    print("{} {} {}".format(10-loc[0], 10-loc[1], np.degrees(loc[2])))
+    print([[color, np.degrees(angle_to[color]+loc[2])] for color in angle_to.keys()])
     #print(angle_to)
     #while cv2.waitKey(5) < 0: pass
     return gci
