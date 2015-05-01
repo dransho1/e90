@@ -4,6 +4,21 @@
 ##  Codebase by Noah Weinthal with assistance from      ##
 ##  Prof. Matthew Zucker.                               ##
 ##########################################################
+def recvall(sock, stop):
+"""
+Augmented recv ensuring all chunks are recieved and in order
+"""
+    chunks = []
+    bytes_recd = 0
+    data = ""
+    while bytes_recd < stop:
+        chunk = sock.recv(min((stop-bytes_recd, 2048)))
+        if chunk == '':
+            raise RuntimeError("No Connection")
+        bytes_recd += len(chunk)
+        chunks.append(chunk)
+    return "".join(chunks)
+
 
 class Controller():
     """

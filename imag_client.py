@@ -40,10 +40,12 @@ def main():
             message = recvall(s, image_size)
             nparr = np.fromstring(message, np.uint8)
             image = cv2.imdecode(nparr, cv2.CV_LOAD_IMAGE_COLOR)
+            #image = cv2.flip(image,1)
             if not center:
                 print("looking for center")
                 center, rad = navigator.find_circs(image)
             else:
+                #iage = cv2.flip(image, 1)
                 gci = navigator.operate_on(image, center, rad, 5)
                 cv2.imshow('frame', gci)
             cv2.imshow('frame2', image)

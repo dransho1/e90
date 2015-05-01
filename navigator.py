@@ -4,8 +4,10 @@ import nav
 
 GAMMA_CORR = 5 #this will change with lighting conditions
 GAUSS_BLUR_RAD = 15
-CIRCLE_CENTER = (325,196)
-
+CIRCLE_CENTER = (327,190)
+#CIRCLE_CENTER = (309, 192)
+CIRC_RADIUS = 142
+SHOW = True
 def find_beacon(img):
     img = cv2.GaussianBlur(img, (GAUSS_BLUR_RAD, GAUSS_BLUR_RAD), 0)
     (minVal, maxVal, min_loc, max_loc) = cv2.minMaxLoc(img)
@@ -23,24 +25,7 @@ def gamma_correction(img, correction):
     return np.uint8(img*255)
 
 def find_circs(imag):
-    bw = cv2.cvtColor(imag, cv2.COLOR_BGR2GRAY)
-    circs = cv2.HoughCircles(
-            bw,
-            cv2.cv.CV_HOUGH_GRADIENT,
-            2, 
-            10,
-            minRadius=100,
-            maxRadius=750)
-    imag = imag.copy()
-    try:
-        for c in circs:
-            circle = c[0]
-            cv2.circle(imag, (circle[0], circle[1]), 10, (0,0,255), 2)
-    except:
-        return False
-    #cv2.imshow("Found center", imag)
-    #cv2.waitKey()
-    return (circle[0], circle[1]), circle[2]
+    return CIRCLE_CENTER, CIRC_RADIUS
 
 def find_angles_for(dots, center):
     dot_centers = {}
@@ -64,6 +49,7 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
     display = image.copy()
     blank = np.zeros(image.shape, dtype=np.uint8)
     cv2.circle(blank, dome_center, int(dome_radius), (1,1,1), -1)
+    cv2.circle(blank, dome_center, int(dome_radius-50), (0,0,0), -1)
     working_copy = cv2.multiply(blank, working_copy)
     gci = gamma_correction(working_copy, gamma)
     b,g,r = cv2.split(gci)
@@ -86,10 +72,10 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
     g = cv2.morphologyEx(g, cv2.MORPH_CLOSE, kernel)
 
 
-
-    cv2.imshow("blue", b)
-    cv2.imshow("red", r)
-    cv2.imshow("green", g)
+    if SHOW:
+        cv2.imshow("blue", b)
+        cv2.imshow("red", r)
+        cv2.imshow("green", g)
     dot_dict = {}
     dot_dict['blue'] = b
     dot_dict['red'] = r
@@ -104,15 +90,17 @@ def operate_on(image, dome_center, dome_radius, gamma=GAMMA_CORR):
             'red':(0,0,255)}
     for pt in dots:
         cv2.circle(display, dots[pt], 10, color_dict[pt], 2) 
-    cv2.circle(display, dome_center, 10, (255, 255, 255), 2)
-    cv2.circle(display, dome_center, dome_radius, (0,0,0), 2)
-    cv2.imshow("display", display)
+    if SHOW:
+        cv2.circle(display, dome_center, 10, (255, 255, 255), 2)
+        cv2.circle(display, dome_center, dome_radius, (0,0,0), 2)
+        cv2.circle(display, dome_center, dome_radius-70, (0,0,0), 2)
+        cv2.imshow("display", display)
     loc = nav.guess_position_from(angle_to)
-    print("{} {} {}".format(10-loc[0], 10-loc[1], np.degrees(loc[2])))
+    print("{} {} {}".format(-10+loc[0], -10+loc[1], -1*np.degrees(loc[2])))
     print([[color, np.degrees(angle_to[color]+loc[2])] for color in angle_to.keys()])
     #print(angle_to)
     #while cv2.waitKey(5) < 0: pass
-    return gci
+    return gci, -1*np.array([10-loc[0], 10-loc[1], loc[2]])
 
 def main():
     imag = cv2.imread('robust_test.jpg')

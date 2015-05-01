@@ -1,17 +1,19 @@
 import socket
+import time
 #create an INET, STREAMing socket
 s = socket.socket(
         socket.AF_INET, socket.SOCK_STREAM)
 #now connect to the web server on port 80
 # - the normal http port
-s.connect(("130.58.194.209", 43))
+s.connect(("192.168.1.104", 8888))
 print("Connected")
 chunks = []
 bytes_recd = 0
 message = ""
 while message != "HANGUP":
     try:
-        s.send("TIME")
+        s.send("FOO")
+        time.sleep(1)
         chunk = s.recv(26)
         if chunk == '':
             raise RuntimeError("socket connection broken")

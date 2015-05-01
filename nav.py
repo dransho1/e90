@@ -1,5 +1,4 @@
 import numpy as np
-import graphics as gr
 import random, math, time 
 from scipy.optimize import minimize, check_grad, approx_fprime
 
@@ -97,7 +96,7 @@ def jacobian(x,y,t,angles):
         sum([d_sse(angles[i],x,y,t,b[i][0],b[i][1],dy) for i in angles]),
         sum([d_sse(angles[i],x,y,t,b[i][0],b[i][1],dt) for i in angles])]
     return J
-
+""""
 def main():
     sim_window = gr.GraphWin('Simulation', 800,800)
     disk_x = random.randint(100,300)
@@ -164,3 +163,4 @@ def main():
         disk_y = new_point.getY()
     sim_window.getMouse()
     sim_window.close()
+"""

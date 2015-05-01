@@ -183,11 +183,11 @@ if __name__ == '__main__':
     magellan.start()
     """
     # Start the throttle and control interface
-    yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
-    yeager.daemon = True
-    warn("Booting control")
-    yeager.start()
-    all_procs.append(yeager)
+    #yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
+    #yeager.daemon = True
+    #warn("Booting control")
+    #yeager.start()
+    #all_procs.append(yeager)
 
     warn("Vehicle initilization complete")
     serversocket.close()
@@ -200,8 +200,8 @@ if __name__ == '__main__':
             vehicle_state["operating_condition"]="shutdown"
             print("Shutting down system")
             break
-    for proc in all_procs:
-        proc.join()
+    #for proc in all_procs:
+    #    proc.join()
     #TODO server robustness - after client disconnect, keep child alive
 
     print("all processes terminated")

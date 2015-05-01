@@ -122,10 +122,11 @@ def main():
         angle_sigma=np.radians(5)
               
         for color,ptcolor in BEACON_LOCS.iteritems():
-              angles[color] = alpha(disk_x, disk_y, disk_t, 
+              angles[color] = alpha(disk_x, disk_y, 0, 
                                     ptcolor[0], ptcolor[1]) + np.random.normal(scale=angle_sigma)
 
-        init_guess = np.array([disk_x, disk_y, disk_t]) 
+        init_guess = np.array([disk_x, disk_y, disk_t])
+        print([(color, np.degrees(angles[color])) for color in angles])
 
         #init_guess += np.random.normal(size=3) * np.array([5,5,np.radians(5)])
 
