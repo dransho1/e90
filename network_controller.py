@@ -6,6 +6,7 @@ def main():
     controller = mc.hci_init()
     if len(sys.argv) == 3:
         ip_addr = sys.argv[1]
+        print ip_addr
         port = int(sys.argv[2])
     elif len(sys.argv) == 1:
          print("connecting on localhost")
@@ -18,21 +19,33 @@ def main():
                  
     s = socket.socket(
             socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((ip_addr, port))
+    s.connect_ex((ip_addr, port))
     print("Connected")
     i = 0
-    while True:#message != "HANGUP":
+    while True: #message != "HANGUP":
         try:
-            s.send(bytes("CTL", "ASCII"))
+            ctl = "CTL"
+            c = ctl.decode().encode('ascii','replace')
+            ascii = "ASCII"
+            print c
+            s.send(c)
+            # s.send(bytes("CTL", "ASCII"))
             r = s.recv(3)
-            if r == bytes("RDY","ASCII"):
+            rdy = "RDY"
+            rdy = rdy.decode().encode('ascii','replace')
+            # if r == bytes("RDY","ASCII"):
+            if r == rdy:
+                # calls the mc.py game controller function to interface
+                # with a controller
                 steering, throttle = mc.hci_input(controller)
                 steering = str(int(-1*steering*90 + 90)).zfill(5)
                 throttle = str(int(-1*90*throttle)).zfill(5)
-                #print(throttle)
-                #print(steering)
+                print(throttle)
+                print(steering)
                 code = steering+throttle
-                s.send(bytes(code,"ASCII"))
+                tcode = code.decode().encode('ascii','replace')
+                s.send(tcode)
+                # s.send(bytes(code,"ASCII"))
         except KeyboardInterrupt:
             s.send("STP")
             break
