@@ -22,9 +22,7 @@ ALLOWABLE_OPERATING_CONDITIONS = [
 
 VERBOSITY = "Debug_Full"
 
-#cap = cv2.VideoCapture(0) # get first camera
-cap = None
-
+cap = cv2.VideoCapture(0)
 def messenger():
     pass
 
@@ -65,9 +63,10 @@ def connection_handler(sock, d, cq, camq):
             print("Client {} sent STOP signal".format(addr))
             break
 
-        elif client_action == "CTL":
+        elif client_action == "CTL
             client.sendall("RDY")
             ctl = client.recv(10)
+	    print ctl
             cq.put(ctl)
         else:
             break
@@ -76,7 +75,6 @@ def connection_handler(sock, d, cq, camq):
 
 def driver(d, cq):
     controller = vc.ServoController()
-    print "in driver function"  #never enters
     while d["operating_condition"] != "shutdown":
         opcon = d["operating_condition"]
         if opcon == "emergency_stop":
@@ -89,7 +87,6 @@ def driver(d, cq):
         elif opcon == "normal":
             #print("operating")
             control = cq.get()
-	    print "control is", control
             #print(control[0:5])
             steering = int(control[0:5])
             throttle = int(control[5::])
@@ -178,11 +175,10 @@ if __name__ == '__main__':
         all_procs.append(p)
 
     # Start a thread to capture our forward-facing images
-    if cap is not None:
-        cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
-        cameraman.daemon = True
-        warn("Booting camera")
-        cameraman.start()
+    cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
+    cameraman.daemon = True
+    warn("Booting camera")
+    cameraman.start()
 
     """
     # Start a thread to capture our position 
@@ -192,11 +188,11 @@ if __name__ == '__main__':
     magellan.start()
     """
     # Start the throttle and control interface
-    yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
-    yeager.daemon = True
-    warn("Booting control")
-    yeager.start()
-    all_procs.append(yeager)
+    #yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
+    #yeager.daemon = True
+    #warn("Booting control")
+    #yeager.start()
+    #all_procs.append(yeager)
 
     warn("Vehicle initilization complete")
     serversocket.close()
@@ -214,8 +210,5 @@ if __name__ == '__main__':
     #TODO server robustness - after client disconnect, keep child alive
 
     print("all processes terminated")
-
-if cap is not None:
-    cap.release()
-    
+cap.release()
 exit()

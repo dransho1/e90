@@ -1,3 +1,4 @@
+
 import socket
 import multiprocessing as mp
 import time
@@ -22,9 +23,7 @@ ALLOWABLE_OPERATING_CONDITIONS = [
 
 VERBOSITY = "Debug_Full"
 
-#cap = cv2.VideoCapture(0) # get first camera
-cap = None
-
+cap = cv2.VideoCapture(0)
 def messenger():
     pass
 
@@ -48,17 +47,14 @@ def connection_handler(sock, d, cq, camq):
         if client_action == "FOO":
             client.sendall(str(datetime.datetime.now()))
             time.sleep(0.1)
-	    print "in foo"
         elif client_action == "IMG":
             #frame = d['frame_grab'].copy()
             #gray = frame
-	    print "in image part"
             img_str = camq.get()          
             to_expect = str(len(img_str)).zfill(128)
             client.sendall(to_expect)
             if client.recv(4) == "DATA":
                 client.sendall(img_str)
-		print "in data part"
         elif client_action == "STP":
             client.sendall("HANGUP")
             d["operating_condition"] = "emergency_stop"
@@ -76,7 +72,6 @@ def connection_handler(sock, d, cq, camq):
 
 def driver(d, cq):
     controller = vc.ServoController()
-    print "in driver function"  #never enters
     while d["operating_condition"] != "shutdown":
         opcon = d["operating_condition"]
         if opcon == "emergency_stop":
@@ -89,12 +84,11 @@ def driver(d, cq):
         elif opcon == "normal":
             #print("operating")
             control = cq.get()
-	    print "control is", control
             #print(control[0:5])
             steering = int(control[0:5])
             throttle = int(control[5::])
-            print("the steering is ", steering)
-            print("the throttlle is ", throttle)
+            print(steering)
+            print(throttle)
             controller.setAngle(0, steering)
             controller.setPosition(ESC_SERVO, MOTOR_NEUTRAL + 2*throttle)
             #vc.serial_control(control)
@@ -178,11 +172,10 @@ if __name__ == '__main__':
         all_procs.append(p)
 
     # Start a thread to capture our forward-facing images
-    if cap is not None:
-        cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
-        cameraman.daemon = True
-        warn("Booting camera")
-        cameraman.start()
+    cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
+    cameraman.daemon = True
+    warn("Booting camera")
+    cameraman.start()
 
     """
     # Start a thread to capture our position 
@@ -192,11 +185,11 @@ if __name__ == '__main__':
     magellan.start()
     """
     # Start the throttle and control interface
-    yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
-    yeager.daemon = True
-    warn("Booting control")
-    yeager.start()
-    all_procs.append(yeager)
+    #yeager = mp.Process(target=driver, args=(vehicle_state,control_q))
+    #yeager.daemon = True
+    #warn("Booting control")
+    #yeager.start()
+    #all_procs.append(yeager)
 
     warn("Vehicle initilization complete")
     serversocket.close()
@@ -214,8 +207,5 @@ if __name__ == '__main__':
     #TODO server robustness - after client disconnect, keep child alive
 
     print("all processes terminated")
-
-if cap is not None:
-    cap.release()
-    
+cap.release()
 exit()

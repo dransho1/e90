@@ -1,0 +1,8 @@
+import maestro as m
+
+def main():
+    controller = m.Controller()
+    controller.setTarget(0,8000)
+    controller.close
+
+main()
