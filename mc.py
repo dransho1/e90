@@ -24,6 +24,7 @@ def hci_input(j):
 
     # Used to read input from the two joysticks
     print "number of axes: ", j.get_numaxes()
+    
     steering = j.get_axis(0)
     throttle = j.get_axis(3)
     return (steering, throttle)
