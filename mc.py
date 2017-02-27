@@ -22,7 +22,8 @@ def hci_init():
 def hci_input(j):
     pygame.event.pump()
 
-    # Used to read input from the two joysticks       
+    # Used to read input from the two joysticks
+    print "number of axes: ", j.get_numaxes()
     steering = j.get_axis(0)
     throttle = j.get_axis(3)
     return (steering, throttle)
