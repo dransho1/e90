@@ -5,13 +5,12 @@ These directions are a guide to switching processors on the Traxxas vehicle if/w
 
 ## Turning on the vehicle
 
-First things first - try getting the thing on. Connect the Odriod to the battery pack. Make sure the processor and your computer are on the same wifi network. 
+1. First things first - try getting the thing on. Connect the Odriod to the battery pack. Make sure the processor and your computer are on the same wifi network. 
+   * You can `ssh` into the system if you know the IP address of the processor.
+   * If you don't, you can try connecting a display to the processor, and logging in (password provided elsewhere). Once in, run `ifconfig` to see the IP address. Now ssh in from a remote computer
 
-	+ You can `ssh` into the system if you know the IP address of the processor.
-	+ If you don't, you can try connecting a display to the processor, and logging in (password provided elsewhere). Once in, run `ifconfig` to see the IP address. Now ssh in from a remote computer
 
-
-Next, run the following command from the Odroid
+2. Next, run the following command from the Odroid
 	```
 	python project_server.py <Odroid IP address> <4-digit-port>
 	```
@@ -19,14 +18,14 @@ Next, run the following command from the Odroid
 	You should see a few printout messages! Good.
 
 
-In a seperte terminal in the client computer, connect a PS3 or Xbox game controller and run:
+3. In a seperte terminal in the client computer, connect a PS3 or Xbox game controller and run:
 	```
 	python network_controller.py <Odroid IP address> <4-digit-port>
 	```
 	using the same IP and port from before. You should see some output if you move the controller sticks.
 
 
-Turn on the battery controller by toggle-ing the small button near the battery pack. The servos should mvoe if you move the left stick.
+4. Turn on the battery controller by toggle-ing the small button near the battery pack. The servos should mvoe if you move the left stick.
 
 
-Lastly, turn on the ESC. You should hear a series of chimes, followed by a flashing amber light, and finally another series of chimes indicating the connection to the game controller. Congrats, now you can drive it around!
+5. Lastly, turn on the ESC. You should hear a series of chimes, followed by a flashing amber light, and finally another series of chimes indicating the connection to the game controller. Congrats, now you can drive it around!
