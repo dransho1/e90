@@ -6,8 +6,9 @@ These directions are a guide to switching processors on the Traxxas vehicle if/w
 ## Turning on the vehicle
 
 First things first - try getting the thing on. Connect the Odriod to the battery pack. Make sure the processor and your computer are on the same wifi network. 
-	* You can `ssh` into the system if you know the IP address of the processor.
-	* If you don't, you can try connecting a display to the processor, and logging in (password provided elsewhere). Once in, run `ifconfig` to see the IP address. Now ssh in from a remote computer
+
+	+ You can `ssh` into the system if you know the IP address of the processor.
+	+ If you don't, you can try connecting a display to the processor, and logging in (password provided elsewhere). Once in, run `ifconfig` to see the IP address. Now ssh in from a remote computer
 
 
 Next, run the following command from the Odroid
