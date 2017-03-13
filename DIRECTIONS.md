@@ -3,7 +3,7 @@ How to operate vehicle and transfer processors on the Traxxas vehicle
 
 These directions are a guide to switching processors on the Traxxas vehicle if/when someone wants to update again. The original system was a Raspberry Pi 2 Model B (2015), which I replaced with an Odroid C2 (2017). 
 
-## Turning on the vehicle
+## Turning on the vehicle and game controller operation
 
 1. First things first - try getting the thing on. Connect the Odriod to the battery pack. Make sure the processor and your computer are on the same wifi network. 
    * You can `ssh` into the system if you know the IP address of the processor.
@@ -25,7 +25,7 @@ These directions are a guide to switching processors on the Traxxas vehicle if/w
 	using the same IP and port from before. You should see some output if you move the controller sticks.
 
 
-4. Turn on the battery controller by toggle-ing the small button near the battery pack. The servos should mvoe if you move the left stick.
+4. Turn on the battery controller by toggle-ing the small button near the battery pack. The servos should move if you move the left stick.
 
 
 5. Lastly, turn on the ESC. You should hear a series of chimes, followed by a flashing amber light, and finally another series of chimes indicating the connection to the game controller. Congrats, now you can drive it around!

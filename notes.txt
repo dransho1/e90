@@ -1,0 +1,64 @@
+debugging with Matt:
+
+helpful with hex and binary commands
+
+the servotest and the maestro controller both work
+the script was running alright but wasn't commented out yet
+
+Now try to get basic line following working, and work on really doing
+more mobile robotics stuff, as well as CV stuff.
+	Camera working
+
+Also get the joystick to work in the correct direction
+	Done
+
+meet with cheever either this week or next to make new circuit
+	Sent email
+	1pm meeting today
+	
+Install ROS
+	ROS Kinetic on ARM processor: wiki.ros.org/kinetic/Installation/Ubuntu
+	(Only package not installed was ros-kinetic-roslz)
+	Stepping through tutorials now
+
+Space problem?
+	156 992 opencv
+	99 816 opencv-contib
+	5 756 DOcuments
+	600 Downloads
+	77 336 opencv.zip
+	53 896 opencv_contrib.zip
+
+	487 328 /home/odroid
+
+	* can I delete the .zip files?
+	* sudo apt-get clean helps free some space of Ubuntu downloads
+	* sudo apt-get remove <thing to remove>
+
+git commands:
+	The odroid is synced to noah's and my repos, so follwing commands for pull/push
+	david's origin is 'myorigin'
+	git pull myorigin master
+	git push myorigin
+	everything else is the same
+
+	On hermes, still can use with normal git add / git pull techniques
+
+
+-------------------------------------------------------
+
+
+Make a node that accepts commands (throttle and steering)
+	Listens to command of steering angle and throttle from controller
+	Essentially will redo the project_server client, and network_controller except with Nodes in ROS all on the Odroid
+
+One node controlling car, another node listening to joystick and publishing the axis info
+
+Maker another node that (on same comuter)
+
+Change password for odroid
+
+play with camera, line detecetion and line following
+Joystick working with ROS
+	Python node to listen to joystick throttle and steering commands and sends along to motors
+
