@@ -18,7 +18,7 @@ These directions are a guide to switching processors on the Traxxas vehicle if/w
 	You should see a few printout messages! Good.
 
 
-3. In a seperte terminal in the client computer, connect a PS3 or Xbox game controller and run:
+3. In a seperate terminal in the client computer, connect a PS3 or Xbox game controller and run:
 	```
 	python network_controller.py <Odroid IP address> <4-digit-port>
 	```
