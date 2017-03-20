@@ -69,3 +69,27 @@ Joystick working with ROS
 
 Replace contoller with wireless controller
 	Done
+
+
+
+--------------------------------------------------------
+Unix commands
+
+df -h: memory check in MB
+. ~/catkin_ws/devel/setup.bash: sources the bash to current terminal
+lsmod: see all the drivers and modules in the system 
+dmesg: see all thigns plugged into the computer
+dmesg | grep -i tty: seaches the dmesg space for the "tty" string
+
+---------------------------------------------------------
+Problems:
+
+can listen to one another :)
+issue when try to write to servo controller
+	publishes steering on 20 second delay when line writing to the controller is active:
+		self.controller.setAngle(0, steering)
+	Writing to the actual controller
+issue when writing to setPosition script:
+	"int() argument must be a string or a number, not 'String'"
+	"float" vs "Float64"
+	Types converted between python and ROS std_msgs
