@@ -59,8 +59,6 @@ Make a node that accepts commands (throttle and steering)
 
 One node controlling car, another node listening to joystick and publishing the axis info
 
-Maker another node that (on same comuter)
-
 Change password for odroid
 
 play with camera, line detection and line following
@@ -69,8 +67,6 @@ Joystick working with ROS
 
 Replace contoller with wireless controller
 	Done
-
-
 
 --------------------------------------------------------
 Unix commands
@@ -93,3 +89,20 @@ issue when writing to setPosition script:
 	"int() argument must be a string or a number, not 'String'"
 	"float" vs "Float64"
 	Types converted between python and ROS std_msgs
+
+
+--------------------------------------------------------
+send one message with both steering and throttle
+	define own message type
+	existing message type from ROS
+
+blob finder software installed on Odroid
+ROS cv camera reading the camera and publishing the image as a topic
+	after that, line following like normal
+
+Line folliwing working 
+
+Prime Sense drivers on the Odroid
+1.09 vs 1.08 specs
+	1.09 is short range
+	roslaunch openni2_launch openni2.launch
