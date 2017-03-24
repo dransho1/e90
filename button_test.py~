@@ -1,0 +1,7 @@
+import mc
+
+def main():
+    controller = mc.hci_init()
+    button = mc.hci_button(j)
+
+main()

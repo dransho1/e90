@@ -22,8 +22,8 @@ ALLOWABLE_OPERATING_CONDITIONS = [
 
 VERBOSITY = "Debug_Full"
 
-#cap = cv2.VideoCapture(0) # get first camera
-cap = None
+cap = cv2.VideoCapture(0) # get first camera
+#cap = None
 
 def messenger():
     pass
@@ -178,11 +178,11 @@ if __name__ == '__main__':
         all_procs.append(p)
 
     # Start a thread to capture our forward-facing images
-    if cap is not None:
-        cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
-        cameraman.daemon = True
-        warn("Booting camera")
-        cameraman.start()
+    # if cap is not None:
+    cameraman = mp.Process(target=img_updater, args=(vehicle_state,camq))
+    cameraman.daemon = True
+    warn("Booting camera")
+    cameraman.start()
 
     """
     # Start a thread to capture our position 
@@ -215,7 +215,7 @@ if __name__ == '__main__':
 
     print("all processes terminated")
 
-if cap is not None:
-    cap.release()
+#if cap is not None:
+cap.release()
     
 exit()

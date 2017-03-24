@@ -30,6 +30,11 @@ def hci_input(j):
     throttle = j.get_axis(3)        # axis for PS3 controller
     return (steering, alt_throttle)
 
+def hci_button(j):
+    pygame.event.pump()
+    button = j.get_button(1)
+    return button
+
 def main():
     j = hci_init()
     while True:
