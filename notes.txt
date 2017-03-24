@@ -89,12 +89,15 @@ issue when writing to setPosition script:
 	"int() argument must be a string or a number, not 'String'"
 	"float" vs "Float64"
 	Types converted between python and ROS std_msgs
-
+got rid of issue when the pygame module prints debugging messages to the console
+	Commented out the stuff in C, and compiled it from source
 
 --------------------------------------------------------
 send one message with both steering and throttle
 	define own message type
 	existing message type from ROS
+	** Done
+		FIxed via custom message, int32 and int32
 
 blob finder software installed on Odroid
 ROS cv camera reading the camera and publishing the image as a topic
@@ -106,3 +109,5 @@ Prime Sense drivers on the Odroid
 1.09 vs 1.08 specs
 	1.09 is short range
 	roslaunch openni2_launch openni2.launch
+
+Killswitch also!
