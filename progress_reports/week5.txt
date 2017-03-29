@@ -1,0 +1,23 @@
+sudo shutdown –h now
+
+dmesg – what goes on with hardware
+
+grep – searches for text in files
+
+TODO:
+-	debug RPi and maestro servo controller
+-	servotest.py script and sqURE WAVES
+-	make state transition diagram, print out when changes states, and why
+-	order USB block and cables with cassy
+
+for next week: 
+-	try to get as far as possible
+
+Cheever meeting
+-	Loose wire is irrelevant (b/c power already supplied to moto by LiPo batteries)
+-	PWM is inverted from the mini-maestro b/c motor reads the signal inverted
+-	PWM actually runs the motor by width of the modulation
+o	The signal changes period as the vehicle is moved fwd and backwWrds
+o	Servo controller runs the servos, but not thru PWM signal
+-	When odroid move is complete, have a better way to invert the signal (put onto PCB board or some sort with Prof. Cheever later)
+-	Signal inversion will be necessary with the servo controller via USB

@@ -1,0 +1,23 @@
+Week 9 notes
+3/15/2017
+
+Make a node that accepts commands (throttle and steering)
+	Listens to command of steering angle and throttle from controller
+	Essentially will redo the project_server client, and network_controller except with Nodes in ROS all on the Odroid
+
+	* Multiple pieces of data, feed into different topics
+
+ROS wasn’t fully installed, so just added ROS-base fixed roscore/node/topic stuff
+
+TODO:
+
+Get scripts all on the odroid
+	Trying, but really buggy, slows down when multiple nodes/terminals running
+	Getting data from joystick →  new node!
+	Problem with controller and sending data to car
+
+SSH’ing into the thing is buggy
+	Pygame isn’t game for this. Pygame.event.push() kicks out when ‘visualization not set up’ weird error
+
+•	Fixed pygame to stop printing out SDX_GetAxis bullshit messages, still works ☺
+•	Also made the node just a function instead of a class because it’s way easier

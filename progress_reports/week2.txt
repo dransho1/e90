@@ -1,0 +1,11 @@
+Week 2 notes
+
+Talked with Neil, did the tutorials for ROS, ordered the ODROID, checked out the vehicle
+
+Now can install monitor and keyboard into the Pi to see on screen -> no need to SSH in at first
+
+TODO: 
+-	Use the wifi adaprter for the Robot lab G connection
+-	Follow the tutorials for ROS more on the project 1 and coffeebot ones for the turtlebot
+-	Use the prime sense cameras on the Hermes computers and ROS software
+o	Also us with ROS once understand more of Topics Nodes and Publications

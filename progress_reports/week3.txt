@@ -1,0 +1,33 @@
+Week 3 Notes
+2/1/2017
+
+Accomplished:
+-	Connected to wifi, ssh into RPi
+-	Password to Pi
+-	Can run game controller software and see values populate terminal
+
+TODO:
+-	new batteries for vehicle
+-	run auto control program
+-	replace onboard CPU (swap pi for ODROID)
+o	Booting
+o	GPIO
+o	Wifi connection
+-	Finish project 1 turtlebot stuff
+-	Play with prime sense cameras on the hermes computer
+o	Test to see if cameras can segment color
+-	*Linux (Ubuntu) installed on ODROID
+o	14.04 ARM processor
+o	Get it up and running
+o	GPIO and other things working
+-	*Finish tutorials for the turtlebot
+
+ROS topics, nodes
+-	Helps to segment project into different nodes and topics to report data and keep track of project
+-	ROS distributed system allows python scripts to talk to one another in system
+
+RPi:
+3.18.7-v7+ GNU/Linux
+Distributer ID: 	Debian
+Release: 		7.8
+Codename: 	wheezy

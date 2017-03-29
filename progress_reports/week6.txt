@@ -1,0 +1,34 @@
+Week6 notes
+2/22/2017
+
+Pi Ethernet connection: 130.58.84.218
+Odroid wifi: 192.168.1.104
+
+Does the vendor name show up when plugged in on dmesg?
+Is cdc_acm module listed in lsmod on odroid?
+Udev rules
+
+Pi is loading kernel module in response to Maetro plugged in
+	Software or loading problem?
+
+*install special linux drivers to get maestro working?
+
+
+Maestro controller works on odroid (after installing in libusb-1.0 and mono)
+Maestro command line also works on hermes, which moves servo
+-	must be the serial connection between the pieces
+
+serial settings: (Command port = ttyACM0), (TTL port = ttyACM1)
+-	which one to use?
+-	usbPort = '/dev/ttyACM0  → command port!
+
+Definitely a serial setting problem
+
+The online version of the maestro controller works!!
+-	problem with noahs?
+
+Noah’s thing works fine tho!!!
+-	***issue with sending controls from the PS3 controller to the odroid, and processing to move the servos
+
+Matt fixed this with running the project_server.py script and uncommenting the driver part of the code!!!
+

@@ -1,0 +1,19 @@
+Order odroid now! ($74)
+Prime sense cameras for indoors for now
+Demonstrate success, then order ZED camera
+
+Mapping
+Color reacting is easier than odometerty mapping
+Obstecule avoidance locally
+Seeing colored
+1 - Pure reaction to color in environment, 2 - make a map (maybe, hopefully), 3 – then go outdoors
+
+odroid order, noah conversation, laptop ROS tutorials in Mobile Robotics project one
+
+how to charge car
+overview of how it works
+how to control (with PS4 controller)
+what software did you use
+how slow was slow for processor
+→ tell about method of traveling (reaction to colors)
+height of camera

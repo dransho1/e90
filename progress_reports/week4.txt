@@ -1,0 +1,15 @@
+Week 4 notes 
+2/8/2017
+
+Accomplished:
+-	Line follower program working (though stuttering along in state transition)
+-	Flashed OS image to SD
+-	Uploaded SD to Odroid
+-	Replaced car batteries – got to work with joystick
+
+TODO:
+-	Swap out pi for odroid
+o	Edimax wifi USB adapter
+o	GPIO pins for controller and other connections
+-	Finish line follower – implement with better state transitions
+-	Prime sense cameras integration with Odroid
