@@ -1,0 +1,39 @@
+3/20 - mid semester presentation saved on gdrive
+
+Problems:
+
+can listen to one another :)
+issue when try to write to servo controller
+	publishes steering on 20 second delay when line writing to the controller is active:
+		self.controller.setAngle(0, steering)
+	Writing to the actual controller
+issue when writing to setPosition script:
+	"int() argument must be a string or a number, not 'String'"
+	"float" vs "Float64"
+	Types converted between python and ROS std_msgs
+got rid of issue when the pygame module prints debugging messages to the console
+	Commented out the stuff in C, and compiled it from source
+
+3/22
+For next week:
+
+send one message with both steering and throttle
+	define own message type
+	existing message type from ROS
+	** Done
+	-->Fixed via custom message, int32 and int32
+
+blob finder software installed on Odroid
+ROS cv camera reading the camera and publishing the image as a topic
+	after that, line following like normal
+
+Get Line following working !!
+
+Prime Sense drivers on the Odroid
+1.09 vs 1.08 specs
+	1.09 is short range
+	roslaunch openni2_launch openni2.launch
+	* worked out with Zucker
+	Still have really weird errors on startup/launch
+
+add Killswitch also!

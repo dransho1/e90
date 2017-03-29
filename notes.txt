@@ -1,4 +1,4 @@
-Pre-sring break TODO:
+Pre-spring break TODO:
 
 Now try to get basic line following working, and work on really doing
 more mobile robotics stuff, as well as CV stuff.
@@ -74,8 +74,9 @@ Unix commands
 df -h: memory check in MB
 . ~/catkin_ws/devel/setup.bash: sources the bash to current terminal
 lsmod: see all the drivers and modules in the system 
-dmesg: see all thigns plugged into the computer
+dmesg: see all things plugged into the computer
 dmesg | grep -i tty: seaches the dmesg space for the "tty" string
+apt-cache search - search for libs and packages
 
 ---------------------------------------------------------
 Problems:
@@ -111,3 +112,5 @@ Prime Sense drivers on the Odroid
 	roslaunch openni2_launch openni2.launch
 
 Killswitch also!
+
+

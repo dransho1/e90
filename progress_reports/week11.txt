@@ -1,0 +1,46 @@
+3/24
+Added Killswitch
+	Also got rid of button messages for the pygame debugging by compiing
+	source code
+
+3/25 tutorials 
+Creating a map of the room
+Obstacle avoidance
+Moving to location in map
+
+
+focus on line-following for now
+installing pcl libraries
+using a 3rd party computer for vizualization
+
+download 16.04 and install from USB on the new computer
+
+boot disk creator to mount the ubuntu install onto the USB drive (1GB)
+
+Helpful thigns for running line follower:
+	move servotest into the linefollowr folder
+	run joytest when we run linefollowr for joystick killswitch
+
+3/29
+
+email to matt:
+
+Hi Matt,
+
+Here's my E90 update. This week, I've been able to run tutorials on gmapping with the turtlebot and started with line-following on Otto (my new name for the Odroid car). The gmapping tutorials I followed were straight forward, and helped me understand how I would map the room in a couple weeks, and how I could integrate obstacle avoidance.
+
+I started moving line following onto Otto with moderate success. I was able to launch all required ROS nodes for Mobile robotics project1 (other than the image_view issue I mentioned already). I'm able to detect blob images (attached) and move the tires in the correct direction to the blobs. I'm currently working on how the car will drive relative to the blobs on the floor, since Otto drives differently than the turtlebot. 
+
+I don't know if I mentioned this already but I also added a killswitch on the joystick that kills the script when you press B. 
+
+Issues I encountered that I should resolve soon: 
+- image_view does not work, so I can't see what the vehicle sees while driving. I think this also has to do with the PrimeSense camera - the errors on launching the camera also reference libopencv_core3.so.3.2. My thinking is that both errors are related to this missing or misplaced library
+- the motion server doesn't include git so I can't really use it as a listener for Otto at the moment
+
+Work for the next week:
+- Fix Otto's forward motion to be able to drive (slowly) when following a line; add states for searching for a line
+- Work with J to built a mount for the camera - I might need to mount it higher up to have a good view of blobs and a path
+- I'd also love to figure out a way to follow lines that are on both side of the vehicle - mimicking path following I'd need to do when outdoors
+
+Let me know what you think of my progress, issues, and plans for the week. I hope you have a great time at the conference!
+
