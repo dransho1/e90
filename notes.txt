@@ -114,3 +114,19 @@ Prime Sense drivers on the Odroid
 Killswitch also!
 
 
+---------------------------------------------------------------
+3/29
+
+Have to manage the line follower. Currently, it actually follows
+a line, using motors and steering to find it. But states after
+no blobs are found is a problem. Need to mange:
+- when no blobs are around --> trigger some kind of search event
+- a search event is walking around until you see a large enough blob
+- want to not call the search state accidentily, and then go back
+into the following state
+- search state can walk around slowly in a circle
+- once blob taht is large enough found go back into the following (start) state
+- might need to seperate the start state with the following state
+  --> start out in a start state, going slow with no steer
+  --> if a blob event is found, then following state
+  -->--> following state runs until the blobs are lost again
