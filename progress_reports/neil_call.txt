@@ -1,0 +1,16 @@
+Autonomous travel
+- Have path, get input, run feed-forward control, correct w/positioning system (predefinded)
+- Slwo crawling is best
+calculating path to optimal apex, given a couple boundaries
+*Probably will hit things --> mount camera to allow some bounce
+
+* predefined map and path so no need for visual aids
+
+vision based controls: predefined landmarks
+	- pre-map, and follow beacons (colored)
+
+Do Cone Beaconing first!
+- using hte accelerometer
+
+Either follow the cone and avoid obstacles, or travel in real-world camera interpretation of paths
+
