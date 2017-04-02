@@ -125,8 +125,28 @@ no blobs are found is a problem. Need to mange:
 - want to not call the search state accidentily, and then go back
 into the following state
 - search state can walk around slowly in a circle
-- once blob taht is large enough found go back into the following (start) state
+- once blob that is large enough found go back into the following (start) state
 - might need to seperate the start state with the following state
   --> start out in a start state, going slow with no steer
   --> if a blob event is found, then following state
   -->--> following state runs until the blobs are lost again
+
+roslaunch openni2_launch openni2.launch
+
+4/2
+Something is up with the camera. I got the car working following lines on the
+ground, but a few issues emerged when I was SSH'ing
+- camera would fail out and stop working, stop reading blobs all of the sudden
+- very slow when using the colorpicker for the blobfinder
+- killswitch doesn't always work in the script. will kill the car, but script
+will still run after
+- Camera must be mounted higher to see all the blobs correctly.
+- when camera dropped, had to find colors again
+- search state still doesn't work that well
+
+All the camera errors don't really come up when mounted on my desk, running
+with a display
+
+*Get the shared library message at the launch of camera to go away
+*Get a few things downloaded onto motion server (git, other packages)
+*Meet with J and find out a mounting device for Otto
