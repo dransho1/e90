@@ -35,7 +35,7 @@ I don't know if I mentioned this already but I also added a killswitch on the jo
 
 Issues I encountered that I should resolve soon: 
 - image_view does not work, so I can't see what the vehicle sees while driving. I think this also has to do with the PrimeSense camera - the errors on launching the camera also reference libopencv_core3.so.3.2. My thinking is that both errors are related to this missing or misplaced library
-- the motion server doesn't include git so I can't really use it as a listener for Otto at the moment
+- the motion server doesn't includ egit so I can't really use it as a listener for Otto at the moment
 
 Work for the next week:
 - Fix Otto's forward motion to be able to drive (slowly) when following a line; add states for searching for a line
