@@ -143,6 +143,7 @@ will still run after
 - Camera must be mounted higher to see all the blobs correctly.
 - when camera dropped, had to find colors again
 - search state still doesn't work that well
+- camera calibration file also missing
 
 All the camera errors don't really come up when mounted on my desk, running
 with a display
@@ -150,3 +151,5 @@ with a display
 *Get the shared library message at the launch of camera to go away
 *Get a few things downloaded onto motion server (git, other packages)
 *Meet with J and find out a mounting device for Otto
+
+export ROS_MASTER_URI=http://192.168.1.104:11311
