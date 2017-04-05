@@ -1,0 +1,13 @@
+4/3 meeting with matt
+
+Do everything on the motion computer
+Don't name your car Otto - been done before
+Following the Tmux tutorial
+
+pkill -f ros kills all the scripts on running ros
+
+run the blobfinder and color picker from motion
+also rviz too
+
+scp datafile.data odroid@192...:~/catkin_ws/src/destination--> secure copy protocol
+
