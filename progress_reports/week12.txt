@@ -11,3 +11,17 @@ also rviz too
 
 scp datafile.data odroid@192...:~/catkin_ws/src/destination--> secure copy protocol
 
+4/4 work
+
+Got line following to work (was overthinking it)
+Have a plan for the month:
+     Mapping the room
+     Path following (using CV Hough lines)
+     Object Avoidance
+     Some kind of localization
+
+Can I map the room without a turtlebot?
+Camera doesn't work with cv2?
+-----------------------------------------
+
+Do laserscan obstacle avoidance and vision path following

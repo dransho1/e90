@@ -153,3 +153,10 @@ with a display
 *Meet with J and find out a mounting device for Otto
 
 export ROS_MASTER_URI=http://192.168.1.104:11311
+
+rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/camera/depth/image_raw  --> runs the laserscan image
+
+4/5
+Mounted camera
+	- for some reason depth cloud is really warped
+Also the cv_bridge isnt working

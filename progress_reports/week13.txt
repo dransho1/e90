@@ -1,0 +1,7 @@
+4/5
+TODO:
+Laserscan data processing and avoidance
+path following
+
+-- CMake isn't working right now
+-- and the laserscan is really really warped
