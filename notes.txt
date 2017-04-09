@@ -160,3 +160,4 @@ rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/camera/depth/imag
 Mounted camera
 	- for some reason depth cloud is really warped
 Also the cv_bridge isnt working
+

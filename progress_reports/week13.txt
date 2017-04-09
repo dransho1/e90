@@ -5,3 +5,12 @@ path following
 
 -- CMake isn't working right now
 -- and the laserscan is really really warped
+
+4/9
+LaserScan working
+	Other than potneitally missing objects below the scan
+Implemented in the line_follower (not tested)
+	Simple implementation changes state to avoid, cuts off motor
+	Could make more dynamic mimicing turtlebot bumper
+	      Using the angle of the ray to tell where need to avoid
+	      Using ray angles to where to go as well
