@@ -161,3 +161,7 @@ Mounted camera
 	- for some reason depth cloud is really warped
 Also the cv_bridge isnt working
 
+rosrun rviz rviz
+
+
+

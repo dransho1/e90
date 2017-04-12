@@ -14,3 +14,16 @@ Implemented in the line_follower (not tested)
 	Could make more dynamic mimicing turtlebot bumper
 	      Using the angle of the ray to tell where need to avoid
 	      Using ray angles to where to go as well
+4/11
+Test Odroid
+LaserScan avoidance works
+Trying to re-direct robot in correct direction
+       Need to go in opposite direction of object
+       Also stay within boundaries of the road
+       And quit out if find the path again and nothing blocking Odroid
+LaserScan report index increasing from right to left
+	  28 to -28 degrees L to R (left has a positive angle)
+	  PrimeSense 1.09 specs = 57.5 degrees of view
+	  zero in the middle of view,
+	  Controller has 90 as steer neutral, 180 to 0 L to R (left is 180)
+	  angle * 3 + 90 will work to convert
