@@ -27,3 +27,15 @@ LaserScan report index increasing from right to left
 	  zero in the middle of view,
 	  Controller has 90 as steer neutral, 180 to 0 L to R (left is 180)
 	  angle * 3 + 90 will work to convert
+	 
+4/12 meeting with Matt
+TODO:
+Reserach papers on roadway lane detection
+	Maybe orange spray paint on the sides of paths
+CV methods used for lane markings
+
+Draft report is due Friday
+Outline with some images/documentation fo what I've done
+
+Navigation meeting on Friday
+	Come prepared with ways to do this/ideas

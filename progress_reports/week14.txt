@@ -1,0 +1,34 @@
+4/14 group meeting with Evan/Molly, Chris/Mike
+No nice camera :(
+Use image segmentation instead by-hand path detection
+Color: hue, saturation, value (HSV)
+Take many images, mark by hand, train SVM to detect the correct path in image
+
+4/16
+Gathered data ~ 19 images
+
+4/18
+Met and made script to train image and predict on it
+Very slow when running polynomial
+So much data >70,000 for 1 image
+   Downscaling helps though
+Need to pre-process image to flatten RGB one out
+How to build together all iamges?
+
+----------------------------------
+
+4/19 Meeting with Matt
+Some wizardry--> got the SVM to work with all 19 images, custom poly fit,
+and random sampling of image data
+TODO: 1 week and 1/2 until presentations
+- Slalom
+- Outside path detection in real time
+- Write paper report
+Email matt about slaloming later today
+
+total TODO:
+CS lab due Friday
+Control exam Friday
+15 pg paper due Tuesday
+E90 report due Friday
+E90 presentation next Monday 11:30am
