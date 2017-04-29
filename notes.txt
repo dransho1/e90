@@ -164,4 +164,9 @@ Also the cv_bridge isnt working
 rosrun rviz rviz
 
 
+4/26
 
+Restart the wifi:
+stop networking sudo service networking stop
+stop network manager sudo service network-manager stop
+restart network manager sudo service network-manager restart

@@ -1,0 +1,12 @@
+4/26
+Meeting with Matt
+Made a bunch of adjustments to control alg - generating path based on
+the midpoitns of where we were before, not just the center of image
+    For loop from bottom of image to top!
+
+TODO:
+presentation
+practice presentation
+outside path following!!
+
+image comes into ROS every 0.2 seconds
