@@ -1,4 +1,0 @@
-[33m[ WARN] [1493229341.867515108]: [image_transport] Topics '/camera/depth/image_raw' and '/camera/depth/camera_info' do not appear to be synchronized. In the last 10s:
-	Image messages received:      4
-	CameraInfo messages received: 1
-	Synchronized pairs:           1[0m
