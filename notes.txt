@@ -9,35 +9,35 @@ Problem that popped up at the end fo the project. Whenever booted from a cold st
 Useful commands:
 
 Start the camera:
-`roslaunch openni2_launch openni2.launch`
+roslaunch openni2_launch openni2.launch
 
 Viewing data on a host computer with ROS:
-`export ROS_MASTER_URI=http://<ip-address>:11311`
+export ROS_MASTER_URI=http://<ip-address>:11311
 
 Start laserscanner:
-`rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/camera/depth/image_raw`  --> runs the laserscan image
+rosrun depthimage_to_laserscan depthimage_to_laserscan image:=/camera/depth/image_raw  --> runs the laserscan image
 
 Start RViz:
-`rosrun rviz rviz`
+rosrun rviz rviz
 
 -------------------------------------------------------
 
 Odroid git push/pull for e90 repo:
 	the original e90 git repo "origin" is pointed towards Noah Weinthal's e90 page, which I no longer have access to while using new processor.
 	So to write e90 repo, origin = 'myorigin', branch = 'master'
-	`git pull myorigin master` --> pull data
-	`git push myorigin` --> push data
+	git pull myorigin master --> pull data
+	git push myorigin --> push data
 	...everything else is the same
 
 --------------------------------------------------------
 Helpful Unix commands
 
-`df -h` : memory check in MB
-`. ~/catkin_ws/devel/setup.bash` : sources the bash to current terminal
-`lsmod` : see all the drivers and modules in the system 
-`dmesg` : see all things plugged into the computer
-`dmesg | grep -i tty` : seaches the dmesg space for the "tty" string
-`apt-cache search` : search for online available libs and packages
+df -h : memory check in MB
+. ~/catkin_ws/devel/setup.bash : sources the bash to current terminal
+lsmod : see all the drivers and modules in the system 
+dmesg : see all things plugged into the computer
+dmesg | grep -i tty : seaches the dmesg space for the "tty" string
+apt-cache search : search for online available libs and packages
 
 ---------------------------------------------------------
 Random issues I resolved:
@@ -61,7 +61,7 @@ Prime Sense drivers on the Odroid
 1.09 vs 1.08 specs
 	1.09 is short range
 
-The joystick works in different directions for different controllers. Flip values on `mc.py` script or `servotest.py` script.
+The joystick works in different directions for different controllers. Flip values on mc.py script or servotest.py script.
 
 ROS Installation:
 	ROS Kinetic on ARM processor: wiki.ros.org/kinetic/Installation/Ubuntu
@@ -70,6 +70,6 @@ ROS Installation:
 Space problem in the odroid? Running out of room after ROS install
 	--> ways to save space:
 		* delete the .zip files
-		* `sudo apt-get clean` --> helps free some space of Ubuntu downloads
-		* `sudo apt-get remove <thing to remove>`
+		* sudo apt-get clean --> helps free some space of Ubuntu downloads
+		* sudo apt-get remove <thing to remove>
 
