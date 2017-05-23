@@ -1,3 +1,15 @@
+4/2
+Something is up with the camera. I got the car working following lines on the
+ground, but a few issues emerged when I was SSH'ing
+- camera would fail out and stop working, stop reading blobs all of the sudden
+- very slow when using the colorpicker for the blobfinder
+- killswitch doesn't always work in the script. will kill the car, but script
+will still run after
+- Camera must be mounted higher to see all the blobs correctly.
+- when camera dropped, had to find colors again
+- search state still doesn't work that well
+- camera calibration file also missing
+
 4/3 meeting with matt
 
 Do everything on the motion computer
@@ -25,3 +37,8 @@ Camera doesn't work with cv2?
 -----------------------------------------
 
 Do laserscan obstacle avoidance and vision path following
+
+4/5
+Mounted camera
+	- for some reason depth cloud is really warped
+Also the cv_bridge isnt working
