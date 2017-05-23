@@ -8,6 +8,9 @@ Problem that popped up at the end fo the project. Whenever booted from a cold st
 
 Useful commands:
 
+Shutdown Odroid:
+sudo shutdown -h now
+
 Start the camera:
 roslaunch openni2_launch openni2.launch
 
