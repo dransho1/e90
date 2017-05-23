@@ -76,3 +76,10 @@ Space problem in the odroid? Running out of room after ROS install
 		* `sudo apt-get clean` --> helps free some space of Ubuntu downloads
 		* `sudo apt-get remove <thing to remove>`
 
+------------------------------------------------------
+
+Other less frequent issues:
+	The inverter circuit sometimes does not conduct the signal from the Pololu Maestro servo controller. As a result, the Traxxas never connectes to the system, and does that annoying beeping forever. 
+
+	This can be fixed in a hacky way by holding the inverter circuit by its ends and moving it until the beeping stops :/
+

@@ -47,7 +47,7 @@ Also, always ALWAYS run a shutdown command to turn off the processor, otherwise 
 
 1. Follow steps 1-2 for the Human Control section.
 
-2. Start the Odroid with an HDMI display. Connect the Wifi to the ad-hoc network called *the odroid network*. At the same time, while connecting to it with the Odroid, also connect a host laptop to *the odroid network*. The Odroid and laptop should now be connected to each other.
+2. Start the Odroid with an HDMI display. Connect the Wifi to the ad-hoc network called *the odroid network*. At the same time, while connecting the Odroid to the network, also connect a host laptop to *the odroid network*. The Odroid and laptop should now be connected to each other.
 * Find the IP address of the Odroid on this new network
 
 3. Remove the HDMI display, and follow steps 3-4, and 6 for the Human Control section to connect to, start the car, and initialize gamepad controller (no blobfinder node is necessary in this control).
